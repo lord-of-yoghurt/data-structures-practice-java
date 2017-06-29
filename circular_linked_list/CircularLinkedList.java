@@ -49,17 +49,25 @@ public class CircularLinkedList {
 	
 	// delete last node - still O(n) because nodes are not aware of their previous node
 	public int deleteLast() {
+		
+		// check if list is empty
 		if (!isEmpty()) {
 			Node temp = last;
+			
+			// check if there's just one element
 			if (first.next != null) {
+				// set up a node that will become the penultimate one
 				Node beforeLast = first;
 				while (beforeLast.next != last) {
 					beforeLast = beforeLast.next;
 				}
+				// nullify its next and reassign last
 				beforeLast.next = null;
 				beforeLast = last;
 				return temp.value;
 			}
+			
+			// nullify first and last - the list is now empty
 			first = null;
 			last = null;
 			return temp.value;
