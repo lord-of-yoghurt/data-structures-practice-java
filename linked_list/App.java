@@ -11,32 +11,32 @@ public class App {
 		nodeA.next = nodeB;
 		nodeB.next = nodeC;
 		nodeC.next = nodeD;
-		
+
 		System.out.println(listLength(nodeA)); // => 4
 	}
-	
-	// count length of list
+
+	// count length of list starting at a certain node
 	public static int listLength(Node someNode) {
 		int len = 0;
 		Node current = someNode;
-		
+
 		while (current != null) {
 			len++;
 			current = current.next;
 		}
-		
+
 		return len;
 	}
-	
+
 	// recursively count length of list
 	public static int listLengthRec(Node someNode) {
 		int len = 1;
 		if (someNode.next != null) {
 			len += listLength(someNode.next);
 		}
-		
+
 		return len;
 	}
-	
+
 
 }
