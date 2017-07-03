@@ -71,7 +71,7 @@ public class DoublyLinkedList {
 		return temp; // return deleted first node	
 	}
 	
-	// delete from end of the list - this is O(n) because of "previous"
+	// delete from end of the list - this is O(1) because of "previous"
 	public Node deleteLast() {
 		if (isEmpty()) {
 			System.out.println("Cannot delete from empty list!");
