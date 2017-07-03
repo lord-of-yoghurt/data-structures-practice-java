@@ -12,7 +12,6 @@ public class SinglyLinkedList {
 	// insert at the beginning of the list
 	public void insertFirst(int value) {
 		Node newNode = new Node(value); // create new node with value passed in
-		// if the list is empty, the new node is both first and last
 		newNode.next = first; // new node's "next" now points to the old "first" node
 		first = newNode; // and now "first" points to the new node
 	}
