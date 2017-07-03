@@ -37,20 +37,6 @@ public class DoublyLinkedList {
 		}
 	}
 	
-	// display entire list
-	public void displayList() {
-		if (isEmpty()) {
-			System.out.println("Cannot display an empty list!");
-			return;
-		}
-		Node current = first;
-		while (current != null) {
-			current.displayNode();
-			current = current.next;
-		}
-		System.out.println();
-	}
-	
 	// delete from the beginning of the list
 	// "delete" methods return a node for better maintainability
 	public Node deleteFirst() {
@@ -87,5 +73,21 @@ public class DoublyLinkedList {
 			last = last.previous; // reassign penultimate node as last
 		}
 		return temp;
+	}
+	
+	/////////////////////////
+	// display entire list //
+	/////////////////////////
+	public void displayList() {
+		if (isEmpty()) {
+			System.out.println("Cannot display an empty list!");
+			return;
+		}
+		Node current = first;
+		while (current != null) {
+			current.displayNode();
+			current = current.next;
+		}
+		System.out.println();
 	}
 }
