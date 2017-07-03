@@ -4,11 +4,6 @@ public class DoublyLinkedList {
 	private Node first = null;
 	private Node last = null;
 	
-	// list is empty if there's no first or last
-	public boolean isEmpty() {
-		return (first == null && last == null);
-	}
-	
 	// insert at the beginning of the list
 	public void insertFirst(int value) {
 		Node newNode = new Node(value);
@@ -75,9 +70,54 @@ public class DoublyLinkedList {
 		return temp;
 	}
 	
-	/////////////////////////
-	// display entire list //
-	/////////////////////////
+	// insert after a specific node
+	public boolean insertAfter(int key, int value) {
+		// search for node to insert after
+		Node foundNode = findNode(key);
+		if (foundNode == null) {
+			return false;
+		}
+		
+		// if only one node in the list or if found node is last,
+		// default to inserting new node as last
+		if (first.next == null || foundNode == last) {
+			insertLast(value);
+			return true;
+		}
+		
+		// at this point, create a new node and make the insertion
+		Node newNode = new Node(value);
+		newNode.next = foundNode.next;
+		newNode.previous = foundNode;
+		foundNode.next.previous = newNode;
+		foundNode.next = newNode;
+		return true;
+	}
+	
+	//---------------------------------------------//
+	//-------------- UTILITY METHODS --------------//
+	//---------------------------------------------//
+	
+	// list is empty if there's no first or last
+	public boolean isEmpty() {
+		return (first == null && last == null);
+	}
+	
+	// find a specific node
+	public Node findNode(int key) {
+		// start looking from the beginning of the list
+		Node current = first;
+		while (current.value != key) {
+			current = current.next;
+			if (current == null) {
+				System.out.println("Could not find node!");
+				return null;
+			}
+		}
+		return current;
+	}
+	
+	// display entire list
 	public void displayList() {
 		if (isEmpty()) {
 			System.out.println("Cannot display an empty list!");
