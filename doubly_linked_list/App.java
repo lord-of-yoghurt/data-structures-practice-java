@@ -9,7 +9,7 @@ public class App {
 //			myList.insertFirst(i * 10);
 //		}
 		
-		myList.insertLast(30);
+		myList.insertLast(20);
 		
 		myList.insertAfter(30, 35);
 		

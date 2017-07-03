@@ -110,7 +110,7 @@ public class DoublyLinkedList {
 		while (current.value != key) {
 			current = current.next;
 			if (current == null) {
-				System.out.println("Could not find node!");
+				System.out.println("Could not find node with the key of " + key + "!");
 				return null;
 			}
 		}
