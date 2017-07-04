@@ -4,6 +4,8 @@ public class DoublyLinkedList {
 	private Node first = null;
 	private Node last = null;
 	
+	private Node foundNode = null;
+	
 	// insert at the beginning of the list
 	public void insertFirst(int value) {
 		Node newNode = new Node(value);
@@ -70,28 +72,65 @@ public class DoublyLinkedList {
 		return temp;
 	}
 	
-	// insert after a specific node
-	public boolean insertAfter(int key, int value) {
-		// search for node to insert after
-		Node foundNode = findNode(key);
+	// a versatile insert method for before/after
+	public boolean insert(String where, int key, int value) {
+		// check if the first argument is passed in correctly
+		if (where != "before" && where != "after") {
+			System.out.println("First argument must be \"before\" or \"after\"!");
+			return false;
+		}
+		
+		// find the node by key; return false if not found
+		foundNode = findNode(key);
 		if (foundNode == null) {
 			return false;
 		}
 		
 		// if only one node in the list or if found node is last,
-		// default to inserting new node as last
+		// decide where to insert based on "where" passed in
 		if (first.next == null || foundNode == last) {
-			insertLast(value);
+			if (where == "before") {
+				insertFirst(value);
+			} else {
+				insertLast(value);
+			}
 			return true;
 		}
 		
-		// at this point, create a new node and make the insertion
-		Node newNode = new Node(value);
-		newNode.next = foundNode.next;
-		newNode.previous = foundNode;
-		foundNode.next.previous = newNode;
-		foundNode.next = newNode;
+		// insert based on where the user wants the new node
+		if (where == "before") {
+			insertBefore(value);
+		} else {
+			insertAfter(value);			
+		}
+		foundNode = null; // nullify foundNode to be re-used
 		return true;
+	}
+	
+	// delete from the middle of the list
+	public Node delete(int key) {
+		// locate the node by key
+		foundNode = findNode(key);
+		
+		// null is returned (with error msg in console) if nothing is found
+		if (foundNode == null) {
+			return foundNode;
+		}
+		
+		// check if it's the only node or if it's first/last
+		if (first.next == null || foundNode == last) {
+			return deleteLast();
+		} else if (foundNode == first) {
+			return deleteFirst();
+		}
+		Node temp = foundNode;
+		// point foundNode's previous' next to foundNode's next
+		foundNode.previous.next = foundNode.next; 
+		// vice versa
+		foundNode.next.previous = foundNode.previous;
+		// nullify foundNode to be used again
+		foundNode = null;
+		return temp;
 	}
 	
 	//---------------------------------------------//
@@ -110,7 +149,7 @@ public class DoublyLinkedList {
 		while (current.value != key) {
 			current = current.next;
 			if (current == null) {
-				System.out.println("Could not find node with the key of " + key + "!");
+				System.out.println("Could not find a node with the key of " + key + "!");
 				return null;
 			}
 		}
@@ -129,5 +168,23 @@ public class DoublyLinkedList {
 			current = current.next;
 		}
 		System.out.println();
+	}
+	
+	// helper to insert before a certain node
+	private void insertBefore(int value) {
+		Node newNode = new Node(value);
+		newNode.next = foundNode;
+		newNode.previous = foundNode.previous;
+		foundNode.previous.next = newNode;
+		foundNode.previous = newNode;
+	}
+	
+	// helper to insert after a certain node
+	private void insertAfter(int value) {
+		Node newNode = new Node(value);
+		newNode.next = foundNode.next;
+		newNode.previous = foundNode;
+		foundNode.next.previous = newNode;
+		foundNode.next = newNode;
 	}
 }
