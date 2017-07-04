@@ -138,12 +138,12 @@ public class DoublyLinkedList {
 	//---------------------------------------------//
 	
 	// list is empty if there's no first or last
-	public boolean isEmpty() {
+	private boolean isEmpty() {
 		return (first == null && last == null);
 	}
 	
 	// find a specific node
-	public Node findNode(int key) {
+	private Node findNode(int key) {
 		// start looking from the beginning of the list
 		Node current = first;
 		while (current.value != key) {
